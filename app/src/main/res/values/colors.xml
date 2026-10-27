@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- 亮色模式 -->
+    <color name="bg_top">#E8F1FA</color>
+    <color name="bg_mid">#D7E7F5</color>
+    <color name="bg_bottom">#C4DDF0</color>
+    <color name="glass_card">#66FFFFFF</color>
+    <color name="glass_stroke">#33FFFFFF</color>
+    <color name="text_primary">#14213D</color>
+    <color name="text_secondary">#5A6B85</color>
+    <color name="accent">#2D7DD2</color>
+    <color name="accent_dark">#1E5FA8</color>
+    <color name="btn_primary">#2D7DD2</color>
+    <color name="btn_primary_pressed">#1E5FA8</color>
+    <color name="github_bar">#14000000</color>
+</resources>

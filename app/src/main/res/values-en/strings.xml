@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Luxianxing Firmware Tool</string>
+
+    <string name="title">Box Flasher</string>
+    <string name="subtitle">CPBox Firmware Flash &amp; Check</string>
+    <string name="section_source">Firmware source</string>
+    <string name="pick_local">Pick local</string>
+    <string name="fetch_server">Fetch from server</string>
+    <string name="project_hint">Project (default 2872)</string>
+    <string name="section_info">Firmware info</string>
+    <string name="section_check">Check report</string>
+    <string name="check_only">Check only</string>
+    <string name="section_flash">Flash</string>
+    <string name="host_hint">Box address (default 192.168.1.101)</string>
+    <string name="refresh_box">Query box</string>
+    <string name="start_flash">Start flashing</string>
+    <string name="status_no_firmware">Pick or fetch a firmware first</string>
+    <string name="status_ready">Firmware ready, can flash</string>
+    <string name="check_pass">✅ All passed (%1$d items)</string>
+    <string name="check_fail">❌ Failed (%1$d passed / %2$d failed)</string>
+    <string name="warn_title">Check not passed</string>
+    <string name="warn_body">Some checks failed. Flashing may brick the device. Continue anyway?</string>
+    <string name="warn_go">Continue</string>
+    <string name="warn_cancel">Cancel</string>
+    <string name="cancel">Cancel</string>
+    <string name="status_connecting">Connecting to %1$s…</string>
+    <string name="status_box_found">Connected: %1$s (update=%2$d)</string>
+    <string name="status_uploading">Uploading firmware…</string>
+    <string name="status_uploaded">Uploaded: %1$s</string>
+    <string name="status_polling">Waiting for flash to finish…</string>
+    <string name="status_success_reboot">Flash succeeded, rebooting…</string>
+    <string name="status_failed">Flash failed (update=%1$d)</string>
+    <string name="status_error">Error: %1$s</string>
+    <string name="status_fetching">Fetching firmware for project %1$s…</string>
+    <string name="status_downloading">Downloading %1$s…</string>
+    <string name="status_downloaded">Downloaded: %1$s</string>
+    <string name="status_downloaded_path">Downloaded to: %1$s</string>
+    <string name="box_info">Box: %1$s / update=%2$d</string>
+    <string name="fetch_title">Select firmware version</string>
+    <string name="state_0">Idle</string>
+    <string name="state_1">Started</string>
+    <string name="state_2">Preparing</string>
+    <string name="state_3">Success</string>
+    <string name="state_4">Failed</string>
+    <string name="state_5">Verify failed</string>
+    <string name="state_unknown">Unknown state %1$d</string>
+    <string name="toast_rebooting">Reboot triggered</string>
+    <string name="toast_saved_download">Saved to Downloads</string>
+    <string name="toast_reboot_fail">Reboot failed: %1$s</string>
+    <string name="err_read_file">Cannot read file: %1$s</string>
+    <string name="err_flash">Flash failed: %1$s</string>
+    <string name="err_fetch">Fetch failed: %1$s</string>
+    <string name="err_download">Download failed: %1$s</string>
+    <string name="err_no_firmware">No firmware available on server</string>
+    <string name="github_label">@Srysfu</string>
+</resources>

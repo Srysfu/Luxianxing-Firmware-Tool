@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">路先行固件工具</string>
+
+    <string name="title">盒子刷机工具</string>
+    <string name="subtitle">CPBox 固件刷入与检测</string>
+    <string name="section_source">固件来源</string>
+    <string name="pick_local">本地选择</string>
+    <string name="fetch_server">抓取服务器固件</string>
+    <string name="project_hint">项目号（默认 2872）</string>
+    <string name="section_info">固件信息</string>
+    <string name="section_check">检测报告</string>
+    <string name="check_only">仅检测</string>
+    <string name="section_flash">刷入</string>
+    <string name="host_hint">盒子地址（默认 192.168.1.101）</string>
+    <string name="refresh_box">查询盒子</string>
+    <string name="start_flash">开始刷入</string>
+    <string name="status_no_firmware">请先选择或抓取固件</string>
+    <string name="status_ready">固件就绪，可开始刷入</string>
+    <string name="check_pass">✅ 全部通过（%1$d 项）</string>
+    <string name="check_fail">❌ 未通过（通过 %1$d / 失败 %2$d）</string>
+    <string name="warn_title">检测未通过</string>
+    <string name="warn_body">该固件有检测项未通过，刷入可能导致设备异常。确定继续刷入吗？</string>
+    <string name="warn_go">继续刷入</string>
+    <string name="warn_cancel">取消</string>
+    <string name="cancel">取消</string>
+    <string name="status_connecting">正在连接 %1$s…</string>
+    <string name="status_box_found">已连接盒子：%1$s（update=%2$d）</string>
+    <string name="status_uploading">正在上传固件…</string>
+    <string name="status_uploaded">上传完成：%1$s</string>
+    <string name="status_polling">正在等待刷写完成…</string>
+    <string name="status_success_reboot">刷写成功，正在重启…</string>
+    <string name="status_failed">刷写失败（update=%1$d）</string>
+    <string name="status_error">错误：%1$s</string>
+    <string name="status_fetching">正在抓取项目 %1$s 的固件…</string>
+    <string name="status_downloading">正在下载 %1$s…</string>
+    <string name="status_downloaded">下载完成：%1$s</string>
+    <string name="status_downloaded_path">下载完成，已保存到：%1$s</string>
+    <string name="box_info">盒子：%1$s / update=%2$d</string>
+    <string name="fetch_title">选择固件版本</string>
+    <string name="state_0">空闲</string>
+    <string name="state_1">开始</string>
+    <string name="state_2">准备中</string>
+    <string name="state_3">成功</string>
+    <string name="state_4">失败</string>
+    <string name="state_5">校验失败</string>
+    <string name="state_unknown">未知状态 %1$d</string>
+    <string name="toast_rebooting">已触发重启</string>
+    <string name="toast_saved_download">已保存到下载目录</string>
+    <string name="toast_reboot_fail">重启触发失败：%1$s</string>
+    <string name="err_read_file">读取文件失败：%1$s</string>
+    <string name="err_flash">刷入失败：%1$s</string>
+    <string name="err_fetch">抓取失败：%1$s</string>
+    <string name="err_download">下载失败：%1$s</string>
+    <string name="err_no_firmware">服务器没有可用固件</string>
+    <string name="github_label">@Srysfu</string>
+</resources>
