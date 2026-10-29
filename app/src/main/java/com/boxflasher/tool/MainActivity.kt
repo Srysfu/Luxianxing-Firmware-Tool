@@ -185,49 +185,85 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun showFetchDialog() {
-        val project = binding.etProject.text.toString().trim()
-        lifecycleScope.launch {
-            try {
-                val options = mutableListOf<FirmwareFetcher.Firmware>()
-                if (project.isBlank()) {
-                    setStatus(getString(R.string.status_fetching_all))
-                    val all = fetcher.fetchAllProjects { p, done, total ->
-                        lifecycleScope.launch(Dispatchers.Main) {
-                            setStatus(getString(R.string.status_fetching_progress, p, done + 1, total))
-                        }
-                    }
-                    options.addAll(all)
+        val typed = binding.etProject.text.toString().trim()
+        if (typed.isNotEmpty()) {
+            lifecycleScope.launch { fetchOneAndPick(typed) }
+        } else {
+            showProjectPicker()
+        }
+    }
+
+    /** 项目号分类选择器：全部 + 170 个项目号 */
+    private fun showProjectPicker() {
+        val items = mutableListOf(getString(R.string.proj_all))
+        items.addAll(FirmwareFetcher.ALL_PROJECTS)
+        AlertDialog.Builder(this)
+            .setTitle(getString(R.string.proj_picker_title, FirmwareFetcher.ALL_PROJECTS.size))
+            .setItems(items.toTypedArray()) { _, which ->
+                if (which == 0) {
+                    lifecycleScope.launch { fetchAllAndPick() }
                 } else {
-                    setStatus(getString(R.string.status_fetching, project))
-                    val list = fetcher.fetchVersions(project)
-                    list.stable?.let { options.add(it) }
-                    options.addAll(list.tests)
-                }
-
-                if (options.isEmpty()) {
-                    toast(getString(R.string.err_no_firmware))
-                    return@launch
-                }
-
-                val labels = options.map { fw ->
-                    val tag = if (fw.isTest) "TEST" else "STABLE"
-                    val snNote = if (fw.isTest && !fw.sn.isNullOrBlank()) " [SN]" else ""
-                    "${fw.project}  $tag  ${fw.appver}$snNote"
-                }.toTypedArray()
-
-                withContext(Dispatchers.Main) {
-                    AlertDialog.Builder(this@MainActivity)
-                        .setTitle(getString(R.string.fetch_title, options.size))
-                        .setItems(labels) { _, which -> downloadFirmware(options[which]) }
-                        .setNegativeButton(R.string.cancel, null)
-                        .show()
-                }
-            } catch (e: Exception) {
-                withContext(Dispatchers.Main) {
-                    setStatus(getString(R.string.status_error, safeErr(e)))
-                    toast(getString(R.string.err_fetch, safeErr(e)))
+                    lifecycleScope.launch { fetchOneAndPick(items[which]) }
                 }
             }
+            .setNegativeButton(R.string.cancel, null)
+            .show()
+    }
+
+    private suspend fun fetchAllAndPick() {
+        try {
+            setStatus(getString(R.string.status_fetching_all))
+            val all = fetcher.fetchAllProjects { p, done, total ->
+                lifecycleScope.launch(Dispatchers.Main) {
+                    setStatus(getString(R.string.status_fetching_progress, p, done, total))
+                }
+            }
+            if (all.isEmpty()) {
+                toast(getString(R.string.err_no_firmware))
+                return
+            }
+            setStatus(getString(R.string.status_fetched_count, all.size))
+            showFirmwarePicker(getString(R.string.fetch_title, all.size), all)
+        } catch (e: Exception) {
+            withContext(Dispatchers.Main) {
+                setStatus(getString(R.string.status_error, safeErr(e)))
+                toast(getString(R.string.err_fetch, safeErr(e)))
+            }
+        }
+    }
+
+    private suspend fun fetchOneAndPick(project: String) {
+        try {
+            withContext(Dispatchers.Main) { setStatus(getString(R.string.status_fetching, project)) }
+            val list = fetcher.fetchVersions(project)
+            val options = mutableListOf<FirmwareFetcher.Firmware>()
+            list.stable?.let { options.add(it) }
+            options.addAll(list.tests)
+            if (options.isEmpty()) {
+                toast(getString(R.string.err_no_firmware))
+                return
+            }
+            showFirmwarePicker(getString(R.string.fetch_title_project, project, options.size), options)
+        } catch (e: Exception) {
+            withContext(Dispatchers.Main) {
+                setStatus(getString(R.string.status_error, safeErr(e)))
+                toast(getString(R.string.err_fetch, safeErr(e)))
+            }
+        }
+    }
+
+    private suspend fun showFirmwarePicker(title: String, options: List<FirmwareFetcher.Firmware>) {
+        val labels = options.map { fw ->
+            val tag = if (fw.isTest) "TEST" else "STABLE"
+            val snNote = if (fw.isTest && !fw.sn.isNullOrBlank()) " [SN]" else ""
+            "${fw.project}  $tag  ${fw.appver}$snNote"
+        }.toTypedArray()
+        withContext(Dispatchers.Main) {
+            AlertDialog.Builder(this@MainActivity)
+                .setTitle(title)
+                .setItems(labels) { _, which -> downloadFirmware(options[which]) }
+                .setNegativeButton(R.string.cancel, null)
+                .show()
         }
     }
 

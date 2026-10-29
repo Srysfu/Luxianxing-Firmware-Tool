@@ -7,7 +7,7 @@
     <string name="section_source">Firmware source</string>
     <string name="pick_local">Pick local</string>
     <string name="fetch_server">Fetch from server</string>
-    <string name="project_hint">Project (blank = all projects)</string>
+    <string name="project_hint">Project (blank = pick category)</string>
     <string name="section_info">Firmware info</string>
     <string name="section_check">Check report</string>
     <string name="check_only">Check only</string>
@@ -40,6 +40,10 @@
     <string name="status_downloaded_path">Downloaded to: %1$s</string>
     <string name="box_info">Box: %1$s / update=%2$d</string>
     <string name="fetch_title">Select firmware (%1$d)</string>
+    <string name="fetch_title_project">Project %1$s firmware (%2$d)</string>
+    <string name="proj_picker_title">Select project category (%1$d)</string>
+    <string name="proj_all">All projects (fetch all)</string>
+    <string name="status_fetched_count">Fetched %1$d firmwares</string>
     <string name="state_0">Idle</string>
     <string name="state_1">Started</string>
     <string name="state_2">Preparing</string>
