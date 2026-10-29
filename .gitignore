@@ -14,5 +14,10 @@ captures/
 .externalNativeBuild/
 .cxx/
 
+# Signing
+release.keystore
+*.keystore
+*.jks
+
 # Logs
 *.log

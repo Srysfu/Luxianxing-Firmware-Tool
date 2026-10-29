@@ -7,7 +7,7 @@
     <string name="section_source">固件来源</string>
     <string name="pick_local">本地选择</string>
     <string name="fetch_server">抓取服务器固件</string>
-    <string name="project_hint">项目号（默认 2872）</string>
+    <string name="project_hint">项目号（留空抓取全部项目）</string>
     <string name="section_info">固件信息</string>
     <string name="section_check">检测报告</string>
     <string name="check_only">仅检测</string>
@@ -33,11 +33,13 @@
     <string name="status_failed">刷写失败（update=%1$d）</string>
     <string name="status_error">错误：%1$s</string>
     <string name="status_fetching">正在抓取项目 %1$s 的固件…</string>
+    <string name="status_fetching_all">正在抓取全部项目的固件…</string>
+    <string name="status_fetching_progress">正在抓取项目 %1$s（%2$d/%3$d）…</string>
     <string name="status_downloading">正在下载 %1$s…</string>
     <string name="status_downloaded">下载完成：%1$s</string>
     <string name="status_downloaded_path">下载完成，已保存到：%1$s</string>
     <string name="box_info">盒子：%1$s / update=%2$d</string>
-    <string name="fetch_title">选择固件版本</string>
+    <string name="fetch_title">选择固件版本（%1$d）</string>
     <string name="state_0">空闲</string>
     <string name="state_1">开始</string>
     <string name="state_2">准备中</string>

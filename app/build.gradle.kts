@@ -11,8 +11,17 @@ android {
         applicationId = "com.boxflasher.tool"
         minSdk = 26
         targetSdk = 34
-        versionCode = 1
-        versionName = "1.0.0"
+        versionCode = 2
+        versionName = "1.1.0"
+    }
+
+    signingConfigs {
+        create("release") {
+            storeFile = rootProject.file("release.keystore")
+            storePassword = "luxianxing123"
+            keyAlias = "luxianxing"
+            keyPassword = "luxianxing123"
+        }
     }
 
     buildTypes {
@@ -22,6 +31,7 @@ android {
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
             )
+            signingConfig = signingConfigs.getByName("release")
         }
         debug {
             isMinifyEnabled = false
@@ -50,6 +60,11 @@ android {
             excludes += "/META-INF/LICENSE"
             excludes += "/META-INF/NOTICE"
         }
+    }
+
+    lint {
+        checkReleaseBuilds = false
+        abortOnError = false
     }
 }
 

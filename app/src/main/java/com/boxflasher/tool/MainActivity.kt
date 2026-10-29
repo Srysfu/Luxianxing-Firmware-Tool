@@ -38,7 +38,7 @@ class MainActivity : AppCompatActivity() {
         binding.btnRefreshBox.setOnClickListener { refreshBoxInfo() }
         binding.layoutGithub.setOnClickListener { openGithub() }
 
-        binding.etProject.setText(FirmwareFetcher.DEFAULT_PROJECT)
+        binding.etProject.setText("")
         binding.etHost.setText(BoxFlasher.DEFAULT_HOST)
 
         updateUi()
@@ -185,14 +185,24 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun showFetchDialog() {
-        val project = binding.etProject.text.toString().trim().ifBlank { FirmwareFetcher.DEFAULT_PROJECT }
-        setStatus(getString(R.string.status_fetching, project))
+        val project = binding.etProject.text.toString().trim()
         lifecycleScope.launch {
             try {
-                val list = fetcher.fetchVersions(project)
                 val options = mutableListOf<FirmwareFetcher.Firmware>()
-                list.stable?.let { options.add(it) }
-                options.addAll(list.tests)
+                if (project.isBlank()) {
+                    setStatus(getString(R.string.status_fetching_all))
+                    val all = fetcher.fetchAllProjects { p, done, total ->
+                        lifecycleScope.launch(Dispatchers.Main) {
+                            setStatus(getString(R.string.status_fetching_progress, p, done + 1, total))
+                        }
+                    }
+                    options.addAll(all)
+                } else {
+                    setStatus(getString(R.string.status_fetching, project))
+                    val list = fetcher.fetchVersions(project)
+                    list.stable?.let { options.add(it) }
+                    options.addAll(list.tests)
+                }
 
                 if (options.isEmpty()) {
                     toast(getString(R.string.err_no_firmware))
@@ -202,12 +212,12 @@ class MainActivity : AppCompatActivity() {
                 val labels = options.map { fw ->
                     val tag = if (fw.isTest) "TEST" else "STABLE"
                     val snNote = if (fw.isTest && !fw.sn.isNullOrBlank()) " [SN]" else ""
-                    "$tag ${fw.appver}$snNote"
+                    "${fw.project}  $tag  ${fw.appver}$snNote"
                 }.toTypedArray()
 
                 withContext(Dispatchers.Main) {
                     AlertDialog.Builder(this@MainActivity)
-                        .setTitle(R.string.fetch_title)
+                        .setTitle(getString(R.string.fetch_title, options.size))
                         .setItems(labels) { _, which -> downloadFirmware(options[which]) }
                         .setNegativeButton(R.string.cancel, null)
                         .show()
