@@ -4,6 +4,9 @@
 
     <string name="title">Box Flasher</string>
     <string name="subtitle">CPBox Firmware Flash &amp; Check</string>
+    <string name="box_project_loading">Project: loading…</string>
+    <string name="box_project">Current project: %1$s</string>
+    <string name="box_project_unknown">Current project: not connected</string>
     <string name="section_source">Firmware source</string>
     <string name="pick_local">Pick local</string>
     <string name="fetch_server">Fetch from server</string>

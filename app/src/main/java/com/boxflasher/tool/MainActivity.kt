@@ -42,6 +42,32 @@ class MainActivity : AppCompatActivity() {
         binding.etHost.setText(BoxFlasher.DEFAULT_HOST)
 
         updateUi()
+        refreshBoxProject()
+    }
+
+    /** 读取盒子 appver，解析出当前项目号并显示在顶部 */
+    private fun refreshBoxProject() {
+        val host = binding.etHost.text.toString().trim().ifBlank { BoxFlasher.DEFAULT_HOST }
+        binding.tvBoxProject.text = getString(R.string.box_project_loading)
+        lifecycleScope.launch {
+            try {
+                val info = BoxFlasher(host).queryBoxInfoAsync()
+                val project = projectFromAppver(info.appver)
+                binding.tvBoxProject.text = if (project != null) {
+                    getString(R.string.box_project, project)
+                } else {
+                    getString(R.string.box_project_unknown)
+                }
+            } catch (e: Exception) {
+                binding.tvBoxProject.text = getString(R.string.box_project_unknown)
+            }
+        }
+    }
+
+    /** appver 形如 26050709.2872.1，取中间段为项目号 */
+    private fun projectFromAppver(appver: String?): String? {
+        val parts = appver?.split(".") ?: return null
+        return if (parts.size >= 2 && parts[1].isNotBlank()) parts[1] else null
     }
 
     private fun resolveUri(uri: Uri) {
@@ -328,6 +354,12 @@ class MainActivity : AppCompatActivity() {
             try {
                 val info = BoxFlasher(host).queryBoxInfoAsync()
                 setStatus(getString(R.string.box_info, host, info.update))
+                val project = projectFromAppver(info.appver)
+                binding.tvBoxProject.text = if (project != null) {
+                    getString(R.string.box_project, project)
+                } else {
+                    getString(R.string.box_project_unknown)
+                }
             } catch (e: Exception) {
                 setStatus(getString(R.string.status_error, safeErr(e)))
             }

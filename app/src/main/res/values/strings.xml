@@ -4,6 +4,9 @@
 
     <string name="title">盒子刷机工具</string>
     <string name="subtitle">CPBox 固件刷入与检测</string>
+    <string name="box_project_loading">项目号：读取中…</string>
+    <string name="box_project">当前项目号：%1$s</string>
+    <string name="box_project_unknown">当前项目号：未连接</string>
     <string name="section_source">固件来源</string>
     <string name="pick_local">本地选择</string>
     <string name="fetch_server">抓取服务器固件</string>
